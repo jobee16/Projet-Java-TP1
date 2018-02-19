@@ -3,12 +3,18 @@ package App;
 	import metier.Clients;
 	import metier.Comptes;
 	import metier.Transactions;
-	
-	import java.util.ArrayList;
-	import java.util.Date;
 	import java.util.Scanner;
+	import java.util.Date;
+	import java.util.ArrayList;
 
 	public class GestionBanque {
+		
+		public static void main(String[] args) {
+		// TODO Auto-generated method stub
+			GestionBanque bankLauncher =  new GestionBanque();
+			bankLauncher.affichage();
+		}
+
 
 		public GestionBanque() {
 			// TODO Auto-generated constructor stub
@@ -17,13 +23,13 @@ package App;
 		Clients clt = new Clients();
 		Double taux, montant, solde_apres_t, solde_avant_t, montantTrans;
 		Date date = new Date();
-		Scanner lecture = new Scanner(System.in);
+		Scanner reader = new Scanner(System.in);
 		int numCompte,numTrans;
 		String typeTrans;
 		
 		Comptes cpt = new Comptes();
 		char choix ='\0';
-		ArrayList<Comptes> listeCpte = new ArrayList<Comptes>();
+		ArrayList<Comptes> lstCpte = new ArrayList<Comptes>();
 		ArrayList<Transactions> listeTransaction = new ArrayList<Transactions>();
 		Date dateTrans = new Date();
 		
@@ -31,16 +37,16 @@ package App;
 		{
 			try
 			{
-				System.out.println("Numero du compte - NB: Un entier positif\n");
-				int cpid = lecture.nextInt();
+				System.out.println("Numero du compte (Entier positif)\n");
+				int cpid = reader.nextInt();
 				while(cpid<=0)
 				{
-					System.err.println("Numero du compte - NB: Un entier positif\n");
-					cpid = lecture.nextInt();
+					System.err.println("Numero du compte (Entier positif)\n");
+					cpid = reader.nextInt();
 				}
 				
 						boolean trouver = false;
-					for (Comptes cpte_tenu : listeCpte) 
+					for (Comptes cpte_tenu : lstCpte) 
 					{
 						int tempCompte = cpte_tenu.getIdCompte();
 						if (tempCompte == cpid)
@@ -50,7 +56,7 @@ package App;
 							while(cpid<=0)
 							{
 								System.err.println("Numero du compte - NB: Un entier positif");
-								cpid = lecture.nextInt();
+								cpid = reader.nextInt();
 							}
 						}
 					}
@@ -59,29 +65,29 @@ package App;
 					{
 						
 					System.out.println("Numero du client - NB: Un entier positif\n");
-					int clid = lecture.nextInt();
+					int clid = reader.nextInt();
 					while(clid<=0)
 					{
 						System.err.println("Numero du client - NB: Un entier positif\n");
-						clid = lecture.nextInt();
+						clid = reader.nextInt();
 					}
 					System.out.println("Client nom\n");
-					String clnom = lecture.next();
+					String clnom = reader.next();
 					System.out.println("Solde compte - NB: Un nombre positif\n");
-					double cpsolde = lecture.nextDouble();
+					double cpsolde = reader.nextDouble();
 					while(cpsolde<=0)
 					{
 						System.err.println("Solde compte - NB: Un nombre positif\n");
-						cpsolde = lecture.nextDouble();
+						cpsolde = reader.nextDouble();
 					}
 					System.out.println("Type du compte NB: Epargne ou Courant\n");
-					String typeCpte = lecture.next();
+					String typeCpte = reader.next();
 					System.out.println("Taux du compte - NB: un decimal superieur a 0 et inferieur a 1\n");
-					taux = lecture.nextDouble();
+					taux = reader.nextDouble();
 					while((taux<=0)||(taux>=1))
 					{
 						System.err.println("Taux du compte - NB: un decimal superieur a 0 et inferieur a 1\n");
-						taux = lecture.nextDouble();
+						taux = reader.nextDouble();
 					}
 					Date dc = new Date();
 					cpt= new Comptes(cpid,clid,clnom,cpsolde,taux,dc,typeCpte);
@@ -89,7 +95,7 @@ package App;
 					typeTrans = "Depot";
 					montantTrans = cpsolde;
 					numTrans = listeTransaction.size()+1;
-					listeCpte.add(cpt);
+					lstCpte.add(cpt);
 					solde_avant_t = 0.0;
 					solde_apres_t = montantTrans;
 					Transactions trans = new Transactions(numTrans, cpt.getIdClient(), cpt.getIdCompte(), dateTrans, typeTrans,montantTrans,solde_avant_t,solde_apres_t);
@@ -98,9 +104,9 @@ package App;
 					System.out.println("\n");
 					System.out.println("Compte: ");
 							
-					for (int x=0; x<listeCpte.size(); x++)
+					for (int x=0; x<lstCpte.size(); x++)
 						{
-							System.out.println(listeCpte.get(x).toString());
+							System.out.println(lstCpte.get(x).toString());
 							System.out.println("");
 						}
 					}
@@ -116,13 +122,13 @@ package App;
 			try
 			{
 				System.out.println("Entrez le numero du Compte :");
-				numCompte = lecture.nextInt();
+				numCompte = reader.nextInt();
 				while(numCompte<=0)
 				{
 					System.err.println("Numero du compte - NB: Un entier positif");
-					numCompte = lecture.nextInt();
+					numCompte = reader.nextInt();
 				}
-				if (listeCpte.isEmpty())
+				if (lstCpte.isEmpty())
 				{
 					System.err.println("Ce numero de compte n'existe pas.");
 				}
@@ -130,12 +136,12 @@ package App;
 				else
 				{
 					boolean trouver = false;
-					for (Comptes cpte_tenu : listeCpte) 
+					for (Comptes cpte_tenu : lstCpte) 
 					{
 						int tempCompte = cpte_tenu.getIdCompte();
 						if (tempCompte == numCompte)
 						{
-							cpte_tenu.consulterSolde(cpte_tenu.getIdCompte());
+							cpte_tenu.verifierSolde(cpte_tenu.getIdCompte());
 							trouver = true;
 						}
 
@@ -143,7 +149,7 @@ package App;
 
 					if (trouver == false)
 					{
-						System.err.println("Ce numero de compte n'existe pas.");
+						System.err.println("Ce compte n'existe pas.");
 
 					}
 				}
@@ -154,36 +160,36 @@ package App;
 			}
 		}
 		
-		public void faireDepot()
+		public void Depot()
 		{
 			try
 			{
-				System.out.println("Entrez le numero du Compte :");
-				numCompte = lecture.nextInt();
+				System.out.println("Entrez le numero du Compte :\n");
+				numCompte = reader.nextInt();
 				while(numCompte<=0)
 				{
-					System.err.println("Numero du compte - NB: Un entier positif");
-					numCompte = lecture.nextInt();
+					System.err.println("Numero du compte(Un entier positif)\n");
+					numCompte = reader.nextInt();
 				}
-					if (listeCpte.isEmpty())
+					if (lstCpte.isEmpty())
 					{
-						System.err.println("Presentement, la banque n'a pas de compte.");
+						System.err.println("La banque n'a pas de compte enregistré encore.\n");
 					}
 				
 					else
 					{
 						boolean trouver = false;
-						for (Comptes cpte_tenu : listeCpte) 
+						for (Comptes cpte_tenu : lstCpte) 
 						{
 							int tempCompte = cpte_tenu.getIdCompte();
 							if (tempCompte == numCompte)
 							{
-								System.out.println("Entrez le montant a deposer - NB: un montant positif");
-								montant = lecture.nextDouble();
+								System.out.println("Entrez le montant(Un montant positif):\n");
+								montant = reader.nextDouble();
 								while(montant<=0)
 								{
-									System.err.println("Entrez le montant a deposer - NB: un montant positif");
-									montant = lecture.nextDouble();
+									System.err.println("Entrez le montant(Un montant positif):\n");
+									montant = reader.nextDouble();
 								}
 								solde_avant_t = cpte_tenu.getSoldeCompte();
 								solde_apres_t = solde_avant_t + montant;
@@ -193,7 +199,7 @@ package App;
 								Transactions trans = new Transactions(numTrans, cpte_tenu.getIdCompte(),cpte_tenu.getIdClient(),dateTrans,typeTrans,montantTrans,solde_avant_t,solde_apres_t);
 								listeTransaction.add(trans);
 								System.out.println("Vous aviez "+solde_avant_t+" sur votre compte, \n"
-										+ "vous venez de faire un depot de: "+montant+", presentement vous avez: "+solde_apres_t+" sur votre compte");
+										+ "vous venez de faire un depot de: "+montant+", La: "+solde_apres_t+" sur votre compte");
 								System.out.println("\n");
 								cpte_tenu.depot(montant);
 								trouver = true;
@@ -213,36 +219,36 @@ package App;
 			}
 		}
 		
-		public void faireRetrait()
+		public void Retrait()
 		{
 			try
 			{
 				System.out.println("Entrez le numero du Compte :");
-				numCompte = lecture.nextInt();
+				numCompte = reader.nextInt();
 				while(numCompte<=0)
 				{
-					System.err.println("Numero du compte - NB: Un entier positif");
-					numCompte = lecture.nextInt();
+					System.err.println("Numero du compte(Un entier positif)");
+					numCompte = reader.nextInt();
 				}
-				if (listeCpte.isEmpty())
+				if (lstCpte.isEmpty())
 				{
-					System.err.println("Presentement, la banque n'a pas de compte.");
+					System.err.println("La banque n'a pas encore de compte enregisté.");
 				}
 				
 				else
 				{
 					boolean trouver = false;
-					for (Comptes cpte_tenu : listeCpte) 
+					for (Comptes cpte_tenu : lstCpte) 
 					{
 						int tempCompte = cpte_tenu.getIdCompte();
 						if (tempCompte == numCompte)
 						{
 							System.out.println("Entrez le montant a enlever - NB: un montant positif inferieur a votre solde");
-							montant = lecture.nextDouble();
+							montant = reader.nextDouble();
 							while((montant<=0)||(montant>=cpte_tenu.getSoldeCompte()))
 							{
 								System.err.println("Entrez le montant a enlever - NB: un montant positif inferieur a votre solde");
-								montant = lecture.nextDouble();
+								montant = reader.nextDouble();
 							}
 							solde_avant_t = cpte_tenu.getSoldeCompte();
 							solde_apres_t = solde_avant_t - montant;
@@ -252,7 +258,7 @@ package App;
 							Transactions trans = new Transactions(numTrans, cpte_tenu.getIdCompte(),cpte_tenu.getIdClient(),dateTrans,typeTrans,montantTrans,solde_avant_t,solde_apres_t);
 							listeTransaction.add(trans);
 							System.out.println("Vous aviez "+solde_avant_t+" sur votre compte, \n"
-									+ "vous venez de faire un retrait de: "+montant+", presentement vous avez: "+solde_apres_t+" sur votre compte");
+									+ "vous avez fait un retrait de: "+montant+", la balance actuelle est : "+solde_apres_t+" sur votre compte");
 							System.out.println("\n");
 							cpte_tenu.retrait(montant);
 							
@@ -278,23 +284,23 @@ package App;
 		{
 			try
 			{
-				System.out.println("Entrez le numero du client :");
-				int idClient = lecture.nextInt();
+				System.out.println("Entrez le numero du client(Un entier positif):");
+				int idClient = reader.nextInt();
 				while (idClient <= 0)
 				{
-					System.err.println("le numero du client - NB: Un entier positif");
-					idClient = lecture.nextInt();
+					System.err.println("le numero du client(Un entier positif):");
+					idClient = reader.nextInt();
 				}
-				if (listeCpte.isEmpty())
+				if (lstCpte.isEmpty())
 				{
-					System.err.println("Presentement, la banque n'a pas de compte pour ce client.");
+					System.err.println("La banque n'a pas de compte pour ce client.");
 				}
 
 				else
 				{
 					boolean trouver = false;
 					int i = 0;
-					for (Comptes cpte_tenu : listeCpte)
+					for (Comptes cpte_tenu : lstCpte)
 					{
 						int tempCompte = cpte_tenu.getIdClient();
 						if (tempCompte == idClient) 
@@ -340,11 +346,11 @@ package App;
 		{
 			try
 			{
-				for (int x=0; x<listeCpte.size(); x++)
+				for (int x=0; x<lstCpte.size(); x++)
 				{
-					listeCpte.get(x).setSoldeCompte(listeCpte.get(x).getSoldeCompte()*(1 + listeCpte.get(x).getTaux()));
+					lstCpte.get(x).setSoldeCompte(lstCpte.get(x).getSoldeCompte()*(1 + lstCpte.get(x).getTaux()));
 					System.out.println("");
-					System.out.println(listeCpte.get(x).toString());
+					System.out.println(lstCpte.get(x).toString());
 					System.out.println("");
 				}
 			}
@@ -358,10 +364,10 @@ package App;
 		{
 			try
 			{
-				for (int x=0; x<listeCpte.size(); x++)
+				for (int x=0; x<lstCpte.size(); x++)
 				{
 					System.out.println("\t\t");
-					System.out.println(listeCpte.get(x).toString());
+					System.out.println(lstCpte.get(x).toString());
 					System.out.println("\t\t");
 				}
 			}
@@ -379,14 +385,15 @@ package App;
 		
 		public void messageParDefaut()
 		{
-			System.out.println("************************************");
-			System.out.println("Cette option n'est pas valibe, choisissez une option valide");
+			System.out.println("----------------------------------------------------------------------------");
+			System.out.println("     Vous avez fait un mauvais choix, choisissez une option valide   ");
+			System.out.println("----------------------------------------------------------------------------");
 			System.out.println("\n");
 		}
 		
+		
 		public void affichage()
 		{
-			
 			do
 			{
 				System.out.println("\n");
@@ -406,10 +413,11 @@ package App;
 				System.out.println("\t\tF - Rapport de transaction des comptes");
 				System.out.println("\t\tO - EXIT");
 				System.out.println("\n");
-				System.out.println("Faites un choix");
-				System.out.println("*********************************************");
+				System.out.println("\t\t------------------------------------------------------------------------------------------------------------");
+				System.out.println("\t\tFaites un choix");
+				System.out.println("\t\t------------------------------------------------------------------------------------------------------------");
 				
-				choix = lecture.next().charAt(0);
+				choix = reader.next().charAt(0);
 				
 				switch(choix)
 				{
@@ -425,12 +433,12 @@ package App;
 					
 					case 'c':
 					case 'C':
-							faireDepot();
+							Depot();
 						break;
 					
 					case 'd':
 					case 'D':
-							faireRetrait();
+							Retrait();
 						break;
 						
 						
@@ -439,11 +447,6 @@ package App;
 						verifierQteCompte();
 					break;
 							
-					case 'f':
-					case 'F':
-							rapportTransaction();
-							break;
-					
 					case 'g':
 					case 'G':
 							calculInteret();
@@ -459,6 +462,11 @@ package App;
 							messageAurevoir();
 						break;
 						
+					case 'f':
+					case 'F':
+							rapportTransaction();
+							break;
+						
 					default:
 							messageParDefaut();
 						break;
@@ -467,7 +475,7 @@ package App;
 			
 			while(choix != 'O');
 				
-			lecture.close();
+			reader.close();
 		}
 		
 	}

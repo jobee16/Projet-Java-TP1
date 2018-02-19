@@ -156,7 +156,7 @@ public class Comptes {
 	
 		// Methode permettant de consulter le solde du compte
 		
-		public void consulterSolde(Integer idCompte){
+		public void verifierSolde(Integer idCompte){
 			System.out.println("Presentement, le solde de votre compte est: " +soldeCompte);
 		}
 		
@@ -166,8 +166,8 @@ public class Comptes {
 		@Override
 		public String toString() {
 			return "\n"
-					+ "Numero du compte: " + idCompte + " \n"
-					+ "Numero du titulaire: " + idClient + " \n"
+					+ "Identifiant compte: " + idCompte + " \n"
+					+ "Identifiant titulaire: " + idClient + " \n"
 					+ "Nom du titulaire: " + nomClient+ " \n"
 					+ "Solde du Compte: " + soldeCompte + " \n"
 					+ "Taux du compte: " + taux + " \n"
