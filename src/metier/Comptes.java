@@ -7,11 +7,11 @@ import java.util.Date;
 
 public class Comptes {
 	
-	// Declaration	
+
 	private Integer idCompte;
 	private Integer idClient;
 	private String nomClient;
-	private Double soldeCompte;
+	private Double solde;
 	public Double taux;
 	public Date dateCreationCompte;
 	public String typeCompte; 
@@ -21,7 +21,7 @@ public class Comptes {
 	 * @param idCompte
 	 * @param idClient
 	 * @param nomClient
-	 * @param soldeCompte
+	 * @param solde
 	 * @param taux
 	 * @param dateCreationCompte
 	 * @param typeCompte;
@@ -37,7 +37,7 @@ public class Comptes {
 		this.idCompte = idCompte;
 		this.idClient = idClient;
 		this.nomClient = nomClient;
-		this.soldeCompte = soldeCompte;
+		this.solde= soldeCompte;
 		this.taux = taux;
 		this.dateCreationCompte = dateCreationCompte;
 		this.typeCompte = typeCompte;
@@ -91,14 +91,14 @@ public class Comptes {
 	 * @return the soldeCompte
 	 */
 	public Double getSoldeCompte() {
-		return soldeCompte;
+		return solde;
 	}
 
 	/**
 	 * @param soldeCompte the soldeCompte to set
 	 */
 	public void setSoldeCompte(Double soldeCompte) {
-		this.soldeCompte = soldeCompte;
+		this.solde = soldeCompte;
 	}
 
 	/**
@@ -145,19 +145,19 @@ public class Comptes {
 	// Methode effectuant un depot
 	
 	public void depot(Double montant){
-		soldeCompte += montant;
+		solde += montant;
 	}
 	
 	// Methode effectuant un retrait
 	
 		public void retrait(Double montant){
-			soldeCompte -= montant;
+			solde -= montant;
 		}
 	
 		// Methode permettant de consulter le solde du compte
 		
 		public void verifierSolde(Integer idCompte){
-			System.out.println("Presentement, le solde de votre compte est: " +soldeCompte);
+			System.out.println("Le solde de votre compte est: " +solde);
 		}
 		
 		/* (non-Javadoc)
@@ -169,10 +169,11 @@ public class Comptes {
 					+ "Identifiant compte: " + idCompte + " \n"
 					+ "Identifiant titulaire: " + idClient + " \n"
 					+ "Nom du titulaire: " + nomClient+ " \n"
-					+ "Solde du Compte: " + soldeCompte + " \n"
+					+ "Solde du Compte: " + solde + " \n"
 					+ "Taux du compte: " + taux + " \n"
 					+ "Date de creation: " + dateCreationCompte +" \n"
-					+ "Type du compte: " + typeCompte + "";
+					+ "Type du compte: " + typeCompte + "\n"
+					+ "-------------------------------------------------------------------------------------------"+"";
 		}
 
 

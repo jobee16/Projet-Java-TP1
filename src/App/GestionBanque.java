@@ -25,7 +25,7 @@ package App;
 		Date date = new Date();
 		Scanner reader = new Scanner(System.in);
 		int numCompte,numTrans;
-		String typeTrans;
+		String typeTransac;
 		
 		Comptes cpt = new Comptes();
 		char choix ='\0';
@@ -55,7 +55,7 @@ package App;
 							trouver = true;
 							while(cpid<=0)
 							{
-								System.err.println("Numero du compte - NB: Un entier positif");
+								System.err.println("Numero du compte(Un entier positif)");
 								cpid = reader.nextInt();
 							}
 						}
@@ -64,41 +64,41 @@ package App;
 					if (trouver == false)
 					{
 						
-					System.out.println("Numero du client - NB: Un entier positif\n");
+					System.out.println("Numero du client (Un entier positif)\n");
 					int clid = reader.nextInt();
 					while(clid<=0)
 					{
-						System.err.println("Numero du client - NB: Un entier positif\n");
+						System.err.println("Numero du client (Un entier positif)\n");
 						clid = reader.nextInt();
 					}
 					System.out.println("Client nom\n");
 					String clnom = reader.next();
-					System.out.println("Solde compte - NB: Un nombre positif\n");
+					System.out.println("Solde compte -( Un nombre positif)\n");
 					double cpsolde = reader.nextDouble();
 					while(cpsolde<=0)
 					{
-						System.err.println("Solde compte - NB: Un nombre positif\n");
+						System.err.println("Solde compte -(Un nombre positif)\n");
 						cpsolde = reader.nextDouble();
 					}
-					System.out.println("Type du compte NB: Epargne ou Courant\n");
+					System.out.println("Type du compte (Epargne ou Courant)\n");
 					String typeCpte = reader.next();
-					System.out.println("Taux du compte - NB: un decimal superieur a 0 et inferieur a 1\n");
+					System.out.println("Taux du compte -(Un decimal superieur a 0 et inferieur a 1)\n");
 					taux = reader.nextDouble();
 					while((taux<=0)||(taux>=1))
 					{
-						System.err.println("Taux du compte - NB: un decimal superieur a 0 et inferieur a 1\n");
+						System.err.println("Taux du compte -(Un decimal superieur a 0 et inferieur a 1)\n");
 						taux = reader.nextDouble();
 					}
 					Date dc = new Date();
 					cpt= new Comptes(cpid,clid,clnom,cpsolde,taux,dc,typeCpte);
 					clt = new Clients(cpt.getIdClient(),cpt.getNomClient(),1);
-					typeTrans = "Depot";
+					typeTransac = "Depot";
 					montantTrans = cpsolde;
 					numTrans = listeTransaction.size()+1;
 					lstCpte.add(cpt);
 					solde_avant_t = 0.0;
 					solde_apres_t = montantTrans;
-					Transactions trans = new Transactions(numTrans, cpt.getIdClient(), cpt.getIdCompte(), dateTrans, typeTrans,montantTrans,solde_avant_t,solde_apres_t);
+					Transactions trans = new Transactions(numTrans, cpt.getIdClient(), cpt.getIdCompte(), dateTrans, typeTransac,montantTrans,solde_avant_t,solde_apres_t);
 					listeTransaction.add(trans);
 					
 					System.out.println("\n");
@@ -164,16 +164,16 @@ package App;
 		{
 			try
 			{
-				System.out.println("Entrez le numero du Compte :\n");
+				System.out.println("Entrez le numero du Compte :");
 				numCompte = reader.nextInt();
 				while(numCompte<=0)
 				{
-					System.err.println("Numero du compte(Un entier positif)\n");
+					System.err.println("Numero du compte(Un entier positif)");
 					numCompte = reader.nextInt();
 				}
 					if (lstCpte.isEmpty())
 					{
-						System.err.println("La banque n'a pas de compte enregistré encore.\n");
+						System.err.println("La banque n'a pas de compte enregistré encore.");
 					}
 				
 					else
@@ -193,10 +193,10 @@ package App;
 								}
 								solde_avant_t = cpte_tenu.getSoldeCompte();
 								solde_apres_t = solde_avant_t + montant;
-								typeTrans = "Depot";
+								typeTransac = "Depot";
 								montantTrans = montant;
 								numTrans = listeTransaction.size()+1;
-								Transactions trans = new Transactions(numTrans, cpte_tenu.getIdCompte(),cpte_tenu.getIdClient(),dateTrans,typeTrans,montantTrans,solde_avant_t,solde_apres_t);
+								Transactions trans = new Transactions(numTrans, cpte_tenu.getIdCompte(),cpte_tenu.getIdClient(),dateTrans,typeTransac,montantTrans,solde_avant_t,solde_apres_t);
 								listeTransaction.add(trans);
 								System.out.println("Vous aviez "+solde_avant_t+" sur votre compte, \n"
 										+ "vous venez de faire un depot de: "+montant+", La: "+solde_apres_t+" sur votre compte");
@@ -252,10 +252,10 @@ package App;
 							}
 							solde_avant_t = cpte_tenu.getSoldeCompte();
 							solde_apres_t = solde_avant_t - montant;
-							typeTrans = "Retrait";
+							typeTransac = "Retrait";
 							montantTrans = montant;
 							numTrans = listeTransaction.size()+1;
-							Transactions trans = new Transactions(numTrans, cpte_tenu.getIdCompte(),cpte_tenu.getIdClient(),dateTrans,typeTrans,montantTrans,solde_avant_t,solde_apres_t);
+							Transactions trans = new Transactions(numTrans, cpte_tenu.getIdCompte(),cpte_tenu.getIdClient(),dateTrans,typeTransac,montantTrans,solde_avant_t,solde_apres_t);
 							listeTransaction.add(trans);
 							System.out.println("Vous aviez "+solde_avant_t+" sur votre compte, \n"
 									+ "vous avez fait un retrait de: "+montant+", la balance actuelle est : "+solde_apres_t+" sur votre compte");
@@ -280,7 +280,7 @@ package App;
 			}	
 		}
 		
-		public void verifierQteCompte()
+		public void verifyQteCompte()
 		{
 			try
 			{
@@ -376,14 +376,9 @@ package App;
 				System.out.println(e.toString());
 			}
 		}
+
 		
-		public void messageAurevoir()
-		{
-			System.out.println("Merci de votre fidelite a notre banque, aurevoir !" + "");
-			System.exit(0);
-		}
-		
-		public void messageParDefaut()
+		public void messageDefault()
 		{
 			System.out.println("----------------------------------------------------------------------------");
 			System.out.println("     Vous avez fait un mauvais choix, choisissez une option valide   ");
@@ -444,7 +439,7 @@ package App;
 						
 					case 'e':
 					case 'E':
-						verifierQteCompte();
+						verifyQteCompte();
 					break;
 							
 					case 'g':
@@ -459,7 +454,11 @@ package App;
 						
 					case 'o':
 					case 'O':
-							messageAurevoir();
+						 //messageAurevoir();
+						System.out.println("\t\t------------------------------------------------------------------------------------------------------------");
+						System.out.println("\t\t     Merci de votre fidelité a la BG banque, à bientot");
+						System.out.println("\t\t------------------------------------------------------------------------------------------------------------");
+						System.exit(0);
 						break;
 						
 					case 'f':
@@ -468,7 +467,7 @@ package App;
 							break;
 						
 					default:
-							messageParDefaut();
+						messageDefault();
 						break;
 				}
 			}

@@ -3,7 +3,7 @@ package metier;
 import java.util.Date;
 
 public class Transactions {
-	public int numTransaction;
+	public int idTransaction;
 	private Integer idClient;
 	private Integer idCompte;
 	public Date dateTransaction;
@@ -16,8 +16,8 @@ public class Transactions {
 		super();
 	}
 	
-	public Transactions(int numTransaction, Integer idClient, Integer idCompte, Date dateTransaction, String typeTransaction, Double montantTransaction, Double solde_Av_T, Double solde_Ap_T) {
-		this.numTransaction = numTransaction;
+	public Transactions(int idTransaction, Integer idClient, Integer idCompte, Date dateTransaction, String typeTransaction, Double montantTransaction, Double solde_Av_T, Double solde_Ap_T) {
+		this.idTransaction = idTransaction;
 		this.idClient = idClient;
 		this.idCompte = idCompte;
 		this.dateTransaction = dateTransaction;
@@ -31,14 +31,14 @@ public class Transactions {
 	 * @return the numTransaction
 	 */
 	public int getNumTransaction() {
-		return numTransaction;
+		return idTransaction;
 	}
 
 	/**
 	 * @param numTransaction the numTransaction to set
 	 */
 	public void setNumTransaction(int numTransaction) {
-		this.numTransaction = numTransaction;
+		this.idTransaction = numTransaction;
 	}
 	
 	/**
@@ -151,14 +151,15 @@ public class Transactions {
 		@Override
 		public String toString() {
 			return "\n"
-					+ "Numero Transaction: " + numTransaction + " \n"
+					+ "Numero Transaction: " + idTransaction + " \n"
 					+ "Numero Client: " + idClient + " \n"
 					+ "Numero Compte: " + idCompte + " \n"
 					+ "Date Transaction: " + dateTransaction + " \n"
 					+ "Type Transaction: " + typeTransaction + " \n"
 					+ "Montant Transaction: " + montantTransaction + " \n"
 					+ "Solde Avant Transaction: " + solde_Av_T + " \n"
-					+ "Solde Apres Transaction: " + solde_Ap_T + "";
+					+ "Solde Apres Transaction: " + solde_Ap_T + "\n"
+					+ "-------------------------------------------------------------------------------------------"+"";
 		}
 	
 }
